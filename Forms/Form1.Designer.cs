@@ -38,6 +38,8 @@
             this.SaveMessageTextBox = new System.Windows.Forms.TextBox();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.ViewLinkButton = new System.Windows.Forms.Button();
+            this.ClearLogsButton = new System.Windows.Forms.Button();
+            this.AutoPreviewCheckbox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // ButtonGenerate
@@ -143,12 +145,36 @@
             this.ViewLinkButton.UseVisualStyleBackColor = false;
             this.ViewLinkButton.Click += new System.EventHandler(this.PreviewLinkButton_Click);
             // 
+            // ClearLogsButton
+            // 
+            this.ClearLogsButton.BackColor = System.Drawing.SystemColors.Info;
+            this.ClearLogsButton.Location = new System.Drawing.Point(12, 286);
+            this.ClearLogsButton.Name = "ClearLogsButton";
+            this.ClearLogsButton.Size = new System.Drawing.Size(75, 23);
+            this.ClearLogsButton.TabIndex = 11;
+            this.ClearLogsButton.Text = "Clear Logs";
+            this.ClearLogsButton.UseVisualStyleBackColor = false;
+            this.ClearLogsButton.Click += new System.EventHandler(this.ClearLogsButton_Click);
+            // 
+            // AutoPreviewCheckbox
+            // 
+            this.AutoPreviewCheckbox.AutoSize = true;
+            this.AutoPreviewCheckbox.Location = new System.Drawing.Point(298, 355);
+            this.AutoPreviewCheckbox.Name = "AutoPreviewCheckbox";
+            this.AutoPreviewCheckbox.Size = new System.Drawing.Size(89, 17);
+            this.AutoPreviewCheckbox.TabIndex = 12;
+            this.AutoPreviewCheckbox.Text = "Auto-Preview";
+            this.AutoPreviewCheckbox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.AutoPreviewCheckbox.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ClientSize = new System.Drawing.Size(480, 376);
+            this.Controls.Add(this.AutoPreviewCheckbox);
+            this.Controls.Add(this.ClearLogsButton);
             this.Controls.Add(this.ViewLinkButton);
             this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.SaveMessageTextBox);
@@ -182,6 +208,8 @@
         public System.Windows.Forms.TextBox SaveMessageTextBox;
         public System.Windows.Forms.WebBrowser webBrowser1;
         public System.Windows.Forms.Button ViewLinkButton;
+        private System.Windows.Forms.Button ClearLogsButton;
+        public System.Windows.Forms.CheckBox AutoPreviewCheckbox;
     }
 }
 

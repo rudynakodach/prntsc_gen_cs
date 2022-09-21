@@ -53,6 +53,10 @@ namespace prntsc_gen
 
 				Logger.Log(DateTime.Now.ToString("HH:mm:ss tt",System.Globalization.DateTimeFormatInfo.InvariantInfo) , saveDir, AppStatusLabel, currentLink);
 			}
+			if(AutoPreviewCheckbox.Checked)
+            {
+				webBrowser1.Url = new Uri(currentLink);
+            }
 		}
 
 		private void LinkTextLabel_Click(object sender, EventArgs e) { }
@@ -191,8 +195,26 @@ namespace prntsc_gen
             }
         }
         private void PreviewLinkButton_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				webBrowser1.Url = new Uri(currentLink);
+			}
+			catch ( Exception plbE )
+            {
+				AppStatusLabel.Text = plbE.Message;
+            }
+		}
+
+        private void ClearLogsButton_Click(object sender, EventArgs e)
         {
-			webBrowser1.Url = new Uri(currentLink);
+			string timeNow = DateTime.Now.ToString("HH:mm:ss tt", System.Globalization.DateTimeFormatInfo.InvariantInfo);
+			StreamWriter sw = new StreamWriter(currentDirectory + saveFileName, false);
+			sw.WriteLine("" +
+				"\n##############################" +
+				$"\n## LOGS CLEARED {timeNow} ##" +
+				"\n##############################\n");
+			sw.Close();
         }
     }
 }
