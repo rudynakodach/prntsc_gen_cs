@@ -40,6 +40,7 @@
             this.ViewLinkButton = new System.Windows.Forms.Button();
             this.ClearLogsButton = new System.Windows.Forms.Button();
             this.AutoPreviewCheckbox = new System.Windows.Forms.CheckBox();
+            this.LinksGeneratedLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // ButtonGenerate
@@ -55,9 +56,9 @@
             // 
             // CheckBoxLog
             // 
-            this.CheckBoxLog.Location = new System.Drawing.Point(129, 257);
+            this.CheckBoxLog.Location = new System.Drawing.Point(93, 260);
             this.CheckBoxLog.Name = "CheckBoxLog";
-            this.CheckBoxLog.Size = new System.Drawing.Size(75, 23);
+            this.CheckBoxLog.Size = new System.Drawing.Size(111, 23);
             this.CheckBoxLog.TabIndex = 2;
             this.CheckBoxLog.Text = "Auto-Log";
             this.CheckBoxLog.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -77,10 +78,10 @@
             // 
             // AppStatusLabel
             // 
-            this.AppStatusLabel.Location = new System.Drawing.Point(12, 295);
+            this.AppStatusLabel.Location = new System.Drawing.Point(12, 326);
             this.AppStatusLabel.Name = "AppStatusLabel";
             this.AppStatusLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.AppStatusLabel.Size = new System.Drawing.Size(192, 54);
+            this.AppStatusLabel.Size = new System.Drawing.Size(192, 37);
             this.AppStatusLabel.TabIndex = 4;
             this.AppStatusLabel.Text = "AppStatus";
             this.AppStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -97,7 +98,7 @@
             // OpenLogButton
             // 
             this.OpenLogButton.BackColor = System.Drawing.SystemColors.Info;
-            this.OpenLogButton.Location = new System.Drawing.Point(12, 257);
+            this.OpenLogButton.Location = new System.Drawing.Point(12, 260);
             this.OpenLogButton.Name = "OpenLogButton";
             this.OpenLogButton.Size = new System.Drawing.Size(75, 23);
             this.OpenLogButton.TabIndex = 6;
@@ -108,7 +109,7 @@
             // SaveButton
             // 
             this.SaveButton.BackColor = System.Drawing.SystemColors.Info;
-            this.SaveButton.Location = new System.Drawing.Point(393, 260);
+            this.SaveButton.Location = new System.Drawing.Point(393, 264);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
             this.SaveButton.TabIndex = 7;
@@ -118,7 +119,7 @@
             // 
             // SaveMessageTextBox
             // 
-            this.SaveMessageTextBox.Location = new System.Drawing.Point(230, 260);
+            this.SaveMessageTextBox.Location = new System.Drawing.Point(233, 264);
             this.SaveMessageTextBox.Name = "SaveMessageTextBox";
             this.SaveMessageTextBox.Size = new System.Drawing.Size(157, 20);
             this.SaveMessageTextBox.TabIndex = 8;
@@ -148,7 +149,7 @@
             // ClearLogsButton
             // 
             this.ClearLogsButton.BackColor = System.Drawing.SystemColors.Info;
-            this.ClearLogsButton.Location = new System.Drawing.Point(12, 286);
+            this.ClearLogsButton.Location = new System.Drawing.Point(12, 300);
             this.ClearLogsButton.Name = "ClearLogsButton";
             this.ClearLogsButton.Size = new System.Drawing.Size(75, 23);
             this.ClearLogsButton.TabIndex = 11;
@@ -167,12 +168,23 @@
             this.AutoPreviewCheckbox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.AutoPreviewCheckbox.UseVisualStyleBackColor = true;
             // 
+            // LinksGeneratedLabel
+            // 
+            this.LinksGeneratedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.LinksGeneratedLabel.Location = new System.Drawing.Point(93, 300);
+            this.LinksGeneratedLabel.Name = "LinksGeneratedLabel";
+            this.LinksGeneratedLabel.Size = new System.Drawing.Size(131, 23);
+            this.LinksGeneratedLabel.TabIndex = 13;
+            this.LinksGeneratedLabel.Text = "Links Generated: 0";
+            this.LinksGeneratedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ClientSize = new System.Drawing.Size(480, 376);
+            this.Controls.Add(this.LinksGeneratedLabel);
             this.Controls.Add(this.AutoPreviewCheckbox);
             this.Controls.Add(this.ClearLogsButton);
             this.Controls.Add(this.ViewLinkButton);
@@ -210,6 +222,7 @@
         public System.Windows.Forms.Button ViewLinkButton;
         private System.Windows.Forms.Button ClearLogsButton;
         public System.Windows.Forms.CheckBox AutoPreviewCheckbox;
+        public System.Windows.Forms.Label LinksGeneratedLabel;
     }
 }
 

@@ -15,6 +15,9 @@ namespace prntsc_gen
 {
 	public partial class Form1 : Form
 	{
+
+		public int linksGenerated = 0;
+
 		public string currentLink;
 		public string currentDirectory = Directory.GetCurrentDirectory();
 		public const string saveFileName = "/log.txt";
@@ -30,7 +33,8 @@ namespace prntsc_gen
 
 		private void ButtonGenerate_Click(object sender, EventArgs e)
 		{
-
+			linksGenerated++;
+			LinksGeneratedLabel.Text = $"Links Generated: {linksGenerated}";
 			//clear the list if it contains anything
 			if (link.Count != 0)
 			{
@@ -43,7 +47,7 @@ namespace prntsc_gen
 				link.Add(Characters[x].ToString());
 			}
 
-			currentLink = "https://prnt.sc/" + String.Join("", link);
+			currentLink = "https://www.prnt.sc/" + String.Join("", link);
 
 			CurrentLinkLabel.Text = $"{currentLink}";
 
