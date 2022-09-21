@@ -37,7 +37,7 @@
             this.SaveButton = new System.Windows.Forms.Button();
             this.SaveMessageTextBox = new System.Windows.Forms.TextBox();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
-            this.TestButton = new System.Windows.Forms.Button();
+            this.ViewLinkButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ButtonGenerate
@@ -132,15 +132,16 @@
             this.webBrowser1.Size = new System.Drawing.Size(456, 240);
             this.webBrowser1.TabIndex = 9;
             // 
-            // TestButton
+            // ViewLinkButton
             // 
-            this.TestButton.Location = new System.Drawing.Point(230, 295);
-            this.TestButton.Name = "TestButton";
-            this.TestButton.Size = new System.Drawing.Size(62, 25);
-            this.TestButton.TabIndex = 10;
-            this.TestButton.Text = "button1";
-            this.TestButton.UseVisualStyleBackColor = true;
-            this.TestButton.Click += new System.EventHandler(this.TestButton_Click);
+            this.ViewLinkButton.BackColor = System.Drawing.SystemColors.Info;
+            this.ViewLinkButton.Location = new System.Drawing.Point(311, 326);
+            this.ViewLinkButton.Name = "ViewLinkButton";
+            this.ViewLinkButton.Size = new System.Drawing.Size(75, 23);
+            this.ViewLinkButton.TabIndex = 10;
+            this.ViewLinkButton.Text = "Preview";
+            this.ViewLinkButton.UseVisualStyleBackColor = false;
+            this.ViewLinkButton.Click += new System.EventHandler(this.PreviewLinkButton_Click);
             // 
             // Form1
             // 
@@ -148,7 +149,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ClientSize = new System.Drawing.Size(480, 376);
-            this.Controls.Add(this.TestButton);
+            this.Controls.Add(this.ViewLinkButton);
             this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.SaveMessageTextBox);
             this.Controls.Add(this.SaveButton);
@@ -180,7 +181,7 @@
         private System.Windows.Forms.Button SaveButton;
         public System.Windows.Forms.TextBox SaveMessageTextBox;
         public System.Windows.Forms.WebBrowser webBrowser1;
-        public System.Windows.Forms.Button TestButton;
+        public System.Windows.Forms.Button ViewLinkButton;
     }
 }
 

@@ -190,10 +190,9 @@ namespace prntsc_gen
                 }
             }
         }
-
-        private void TestButton_Click(object sender, EventArgs e)
+        private void PreviewLinkButton_Click(object sender, EventArgs e)
         {
-			webBrowser1.Url = new Uri($"{currentLink}");
+			webBrowser1.Url = new Uri(currentLink);
         }
     }
 }
