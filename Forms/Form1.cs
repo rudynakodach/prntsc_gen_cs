@@ -44,7 +44,7 @@ namespace prntsc_gen
 			}
 			for (int i = 0; i < 6; i++)
 			{
-				int x = random.Next(0, Characters.Count);
+				int x = random.Next(0, Characters.Count - 1);
 
 				link.Add(Characters[x].ToString());
 			}
@@ -58,6 +58,14 @@ namespace prntsc_gen
 
 			CurrentLinkLabel.Text = $"{currentLink}";
 
+            AppStatusLabel.Text = $"{DateTime.Now.ToString("HH:mm:ss tt",System.Globalization.DateTimeFormatInfo.InvariantInfo)} HttpResponse: {WebBrowser.Get(currentLink)}";
+
+
+            if (WebBrowser.Get(currentLink) != 200)
+			{
+				return;
+			}
+
 			if (CheckBoxLog.Checked)
 			{
 				string saveDir = currentDirectory + saveFileName;
@@ -66,7 +74,8 @@ namespace prntsc_gen
 			}
 			if(AutoPreviewCheckbox.Checked)
 			{
-				webBrowser1.Url = new Uri(WebBrowser.GetDirectImageLink(htmlLabel, new Uri(currentLink)));
+				Uri currentLinkUri = new Uri(currentLink);
+				webBrowser1.Url = new Uri(WebBrowser.GetDirectImageLink(htmlLabel, currentLinkUri));
 			}
 		}
 
@@ -138,6 +147,20 @@ namespace prntsc_gen
 				}
 			}
 
+			public static int Get(string url)
+			{
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "GET";
+				request.Timeout = 5000;
+				request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36";
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                HttpStatusCode status = response.StatusCode;
+
+				request.Abort();
+
+				return (int)status;
+            }
+
 			public static string GetDirectImageLink(Label htmlLabel, Uri url)
 			{
 				WebClient wc = new WebClient();
@@ -147,21 +170,20 @@ namespace prntsc_gen
 
 				char[] htmlChars = Encoding.Default.GetString(htmlContent).ToCharArray();
 
-				List<string> html_quotes = html_get_everyobject_in_quotes(htmlChars);
+				List<string> html_quotes = HtmlGetEveryObjectInQuotes(htmlChars);
 				List<string> goodQuotes = new List<string>();
 				
 				foreach (string str in html_quotes)
 				{
-					if(html_quotes.Contains(str)) { continue; }
 					if(str.Contains("/") && str.Contains("image.prntscr") && !str.Contains("google") || !str.Contains("google") && str.Contains("/") && str.Contains("imgur")) { goodQuotes.Add(str); continue; }
 				}
 
 				htmlLabel.Text = $"Len: {goodQuotes.Count}, AllLen: {html_quotes.Count} | {String.Join("", goodQuotes)}";
-				return goodQuotes[0];
+				return goodQuotes.First();
 			}
 
-			//creds to 0xC0LD
-			public static List<string> html_get_everyobject_in_quotes(char[] htmlChars)
+            //creds to 0xC0LD
+            public static List<string> HtmlGetEveryObjectInQuotes(char[] htmlChars)
 			{
 				//get urls like this: blablablablablablabla "some url we want" blablablablabla
 				List<string> links = new List<string>();
@@ -181,7 +203,7 @@ namespace prntsc_gen
 					}
 					else if (afterQuote)
 					{
-						link = link + ch; //add chars to string after quote
+						link += ch; //add chars to string after quote
 					}
 				}
 				return links;
@@ -284,7 +306,21 @@ namespace prntsc_gen
 
 		private void testbutton_Click(object sender, EventArgs e)
 		{
-			WebBrowser.GetDirectImageLink(htmlLabel, new Uri(currentLink));
+			try
+			{
+                WebBrowser.GetDirectImageLink(htmlLabel, new Uri(currentLink));
+
+            }
+			catch (Exception wbtE)
+			{
+				AppStatusLabel.Text = wbtE.Message;
+			}
+        }
+
+		private void CopyLinkToClipboardButton_Click(object sender, EventArgs e)
+		{
+			Clipboard.SetText(currentLink);
+			AppStatusLabel.Text = $"[{DateTime.Now.ToString("HH:mm:ss tt",System.Globalization.DateTimeFormatInfo.InvariantInfo)}] Link saved to clipboard!";
 		}
 	}
 }

@@ -43,6 +43,8 @@
             this.LinksGeneratedLabel = new System.Windows.Forms.Label();
             this.htmlLabel = new System.Windows.Forms.Label();
             this.testbutton = new System.Windows.Forms.Button();
+            this.splitter1 = new System.Windows.Forms.Splitter();
+            this.CopyLinkToClipboardButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ButtonGenerate
@@ -58,9 +60,9 @@
             // 
             // CheckBoxLog
             // 
-            this.CheckBoxLog.Location = new System.Drawing.Point(93, 260);
+            this.CheckBoxLog.Location = new System.Drawing.Point(93, 262);
             this.CheckBoxLog.Name = "CheckBoxLog";
-            this.CheckBoxLog.Size = new System.Drawing.Size(111, 23);
+            this.CheckBoxLog.Size = new System.Drawing.Size(131, 19);
             this.CheckBoxLog.TabIndex = 2;
             this.CheckBoxLog.Text = "Auto-Log";
             this.CheckBoxLog.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -92,7 +94,7 @@
             // 
             this.CurrentLinkLabel.Location = new System.Drawing.Point(230, 286);
             this.CurrentLinkLabel.Name = "CurrentLinkLabel";
-            this.CurrentLinkLabel.Size = new System.Drawing.Size(238, 37);
+            this.CurrentLinkLabel.Size = new System.Drawing.Size(156, 37);
             this.CurrentLinkLabel.TabIndex = 5;
             this.CurrentLinkLabel.Text = "A link will appear here.";
             this.CurrentLinkLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -100,7 +102,7 @@
             // OpenLogButton
             // 
             this.OpenLogButton.BackColor = System.Drawing.SystemColors.Info;
-            this.OpenLogButton.Location = new System.Drawing.Point(12, 260);
+            this.OpenLogButton.Location = new System.Drawing.Point(12, 258);
             this.OpenLogButton.Name = "OpenLogButton";
             this.OpenLogButton.Size = new System.Drawing.Size(75, 23);
             this.OpenLogButton.TabIndex = 6;
@@ -111,7 +113,7 @@
             // SaveButton
             // 
             this.SaveButton.BackColor = System.Drawing.SystemColors.Info;
-            this.SaveButton.Location = new System.Drawing.Point(393, 264);
+            this.SaveButton.Location = new System.Drawing.Point(393, 262);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
             this.SaveButton.TabIndex = 7;
@@ -130,7 +132,7 @@
             // webBrowser1
             // 
             this.webBrowser1.IsWebBrowserContextMenuEnabled = false;
-            this.webBrowser1.Location = new System.Drawing.Point(12, 14);
+            this.webBrowser1.Location = new System.Drawing.Point(9, 12);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
             this.webBrowser1.ScriptErrorsSuppressed = true;
@@ -151,7 +153,7 @@
             // ClearLogsButton
             // 
             this.ClearLogsButton.BackColor = System.Drawing.SystemColors.Info;
-            this.ClearLogsButton.Location = new System.Drawing.Point(12, 300);
+            this.ClearLogsButton.Location = new System.Drawing.Point(12, 293);
             this.ClearLogsButton.Name = "ClearLogsButton";
             this.ClearLogsButton.Size = new System.Drawing.Size(75, 23);
             this.ClearLogsButton.TabIndex = 11;
@@ -173,7 +175,7 @@
             // LinksGeneratedLabel
             // 
             this.LinksGeneratedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LinksGeneratedLabel.Location = new System.Drawing.Point(93, 300);
+            this.LinksGeneratedLabel.Location = new System.Drawing.Point(93, 293);
             this.LinksGeneratedLabel.Name = "LinksGeneratedLabel";
             this.LinksGeneratedLabel.Size = new System.Drawing.Size(131, 23);
             this.LinksGeneratedLabel.TabIndex = 13;
@@ -191,19 +193,43 @@
             // 
             // testbutton
             // 
-            this.testbutton.Location = new System.Drawing.Point(676, 344);
+            this.testbutton.Location = new System.Drawing.Point(681, 352);
             this.testbutton.Name = "testbutton";
-            this.testbutton.Size = new System.Drawing.Size(105, 28);
+            this.testbutton.Size = new System.Drawing.Size(75, 23);
             this.testbutton.TabIndex = 15;
             this.testbutton.Text = "button1";
             this.testbutton.UseVisualStyleBackColor = true;
             this.testbutton.Click += new System.EventHandler(this.testbutton_Click);
+            // 
+            // splitter1
+            // 
+            this.splitter1.Location = new System.Drawing.Point(0, 0);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(3, 376);
+            this.splitter1.TabIndex = 16;
+            this.splitter1.TabStop = false;
+            // 
+            // CopyLinkToClipboardButton
+            // 
+            this.CopyLinkToClipboardButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CopyLinkToClipboardButton.BackColor = System.Drawing.SystemColors.Info;
+            this.CopyLinkToClipboardButton.Location = new System.Drawing.Point(393, 293);
+            this.CopyLinkToClipboardButton.Name = "CopyLinkToClipboardButton";
+            this.CopyLinkToClipboardButton.Size = new System.Drawing.Size(75, 23);
+            this.CopyLinkToClipboardButton.TabIndex = 17;
+            this.CopyLinkToClipboardButton.Text = "Copy Link";
+            this.CopyLinkToClipboardButton.UseVisualStyleBackColor = false;
+            this.CopyLinkToClipboardButton.Click += new System.EventHandler(this.CopyLinkToClipboardButton_Click);
             // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ClientSize = new System.Drawing.Size(967, 376);
+            this.Controls.Add(this.CopyLinkToClipboardButton);
+            this.Controls.Add(this.splitter1);
             this.Controls.Add(this.testbutton);
             this.Controls.Add(this.htmlLabel);
             this.Controls.Add(this.LinksGeneratedLabel);
@@ -247,6 +273,8 @@
         public System.Windows.Forms.Label LinksGeneratedLabel;
         public System.Windows.Forms.Label htmlLabel;
         private System.Windows.Forms.Button testbutton;
+        private System.Windows.Forms.Splitter splitter1;
+        public System.Windows.Forms.Button CopyLinkToClipboardButton;
     }
 }
 
