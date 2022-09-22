@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using System.Web;
+using System.Net;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace prntsc_gen
 {
 	public partial class Form1 : Form
 	{
+		public static WebClient wc = new WebClient();
 
 		public int linksGenerated = 0;
 
@@ -26,17 +26,19 @@ namespace prntsc_gen
 		readonly List<string> Characters = new List<string>() { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "y", "v", "x", "w", "z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
 		readonly Random random = new Random();
 
+
 		public Form1()
 		{
-			InitializeComponent();
-		}
+            InitializeComponent();
 
-		private void ButtonGenerate_Click(object sender, EventArgs e)
+        }
+
+        private void ButtonGenerate_Click(object sender, EventArgs e)
 		{
 			linksGenerated++;
 			LinksGeneratedLabel.Text = $"Links Generated: {linksGenerated}";
 			//clear the list if it contains anything
-			if (link.Count != 0)
+			if (link.Count > 0)
 			{
 				link.Clear();
 			}
@@ -47,7 +49,12 @@ namespace prntsc_gen
 				link.Add(Characters[x].ToString());
 			}
 
-			currentLink = "https://www.prnt.sc/" + String.Join("", link);
+			if (link[0] == "0")
+			{
+				link[0] = Characters[random.Next(0, Characters.Count - 1)];
+			}
+
+			currentLink = "http://www.prnt.sc/" + String.Join("", link);
 
 			CurrentLinkLabel.Text = $"{currentLink}";
 
@@ -55,7 +62,7 @@ namespace prntsc_gen
 			{
 				string saveDir = currentDirectory + saveFileName;
 
-				Logger.Log(DateTime.Now.ToString("HH:mm:ss tt",System.Globalization.DateTimeFormatInfo.InvariantInfo) , saveDir, AppStatusLabel, currentLink);
+				Logger.Log(DateTime.Now.ToString("HH:mm:ss tt",System.Globalization.DateTimeFormatInfo.InvariantInfo) , saveDir, AppStatusLabel);
 			}
 			if(AutoPreviewCheckbox.Checked)
             {
@@ -65,7 +72,7 @@ namespace prntsc_gen
 
 		private void LinkTextLabel_Click(object sender, EventArgs e) { }
 
-		private void button1_Click(object sender, EventArgs e)
+		private void OpenInBrowserButton_Click(object sender, EventArgs e)
 		{
 			if (currentLink != String.Empty)
 			{
@@ -104,7 +111,7 @@ namespace prntsc_gen
 		{
 			public static void OpenInBrowser(string url)
 			{
-				if(String.IsNullOrWhiteSpace(url)) { return; }
+				if (string.IsNullOrWhiteSpace(url)) { return; }
 				try
 				{
 					Process.Start(url);
@@ -134,8 +141,13 @@ namespace prntsc_gen
 
 		public class Logger : Form1
 		{
-			public static void Log(string Message, string FilePath, Label textLabel, string currentLink)
+			public static void Log(string Message, string FilePath, Label textLabel)
 			{
+				if(string.IsNullOrWhiteSpace(Message))
+				{
+					return;
+				}
+
 				try
 				{
 					StreamWriter sw = new StreamWriter(FilePath, true);
@@ -178,11 +190,11 @@ namespace prntsc_gen
 		private void SaveButton_Click(object sender, EventArgs e)
 		{
 			if(SaveMessageTextBox.Text.ToString() == string.Empty)
-				Logger.Log($"[{DateTime.Now.ToString("HH:mm:ss tt", System.Globalization.DateTimeFormatInfo.InvariantInfo)}] Link Saved Manually | {currentLink}", currentDirectory + saveFileName, AppStatusLabel, currentLink);
+				Logger.Log($"[{DateTime.Now.ToString("HH:mm:ss tt", System.Globalization.DateTimeFormatInfo.InvariantInfo)}] Link Saved Manually | {currentLink}", currentDirectory + saveFileName, AppStatusLabel);
 			else if (SaveMessageTextBox.Text.ToString() != string.Empty)
 			{
 				string customMessage = SaveMessageTextBox.Text;
-				Logger.Log($"[{DateTime.Now.ToString("HH:mm:ss tt", System.Globalization.DateTimeFormatInfo.InvariantInfo)}] {customMessage} | {currentLink}", currentDirectory + saveFileName, AppStatusLabel, currentLink);
+				Logger.Log($"[{DateTime.Now.ToString("HH:mm:ss tt", System.Globalization.DateTimeFormatInfo.InvariantInfo)}] {customMessage} | {currentLink}", currentDirectory + saveFileName, AppStatusLabel);
 			}
 		}
 
@@ -214,7 +226,7 @@ namespace prntsc_gen
         {
 			string timeNow = DateTime.Now.ToString("HH:mm:ss tt", System.Globalization.DateTimeFormatInfo.InvariantInfo);
 			StreamWriter sw = new StreamWriter(currentDirectory + saveFileName, false);
-			sw.WriteLine("" +
+			sw.WriteLine(
 				"\n##############################" +
 				$"\n## LOGS CLEARED {timeNow} ##" +
 				"\n##############################\n");

@@ -74,7 +74,7 @@
             this.ButtonOpen.TabIndex = 3;
             this.ButtonOpen.Text = "Open Link";
             this.ButtonOpen.UseVisualStyleBackColor = false;
-            this.ButtonOpen.Click += new System.EventHandler(this.button1_Click);
+            this.ButtonOpen.Click += new System.EventHandler(this.OpenInBrowserButton_Click);
             // 
             // AppStatusLabel
             // 
@@ -180,8 +180,7 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ClientSize = new System.Drawing.Size(480, 376);
             this.Controls.Add(this.LinksGeneratedLabel);
@@ -199,7 +198,7 @@
             this.Controls.Add(this.ButtonGenerate);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "prnt_sc_gen";
             this.TopMost = true;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
