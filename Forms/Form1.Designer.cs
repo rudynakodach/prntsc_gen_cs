@@ -41,6 +41,8 @@
             this.ClearLogsButton = new System.Windows.Forms.Button();
             this.AutoPreviewCheckbox = new System.Windows.Forms.CheckBox();
             this.LinksGeneratedLabel = new System.Windows.Forms.Label();
+            this.htmlLabel = new System.Windows.Forms.Label();
+            this.testbutton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ButtonGenerate
@@ -178,11 +180,32 @@
             this.LinksGeneratedLabel.Text = "Links Generated: 0";
             this.LinksGeneratedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // htmlLabel
+            // 
+            this.htmlLabel.Location = new System.Drawing.Point(474, 14);
+            this.htmlLabel.Name = "htmlLabel";
+            this.htmlLabel.Size = new System.Drawing.Size(491, 335);
+            this.htmlLabel.TabIndex = 14;
+            this.htmlLabel.Text = "label1";
+            this.htmlLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // testbutton
+            // 
+            this.testbutton.Location = new System.Drawing.Point(676, 344);
+            this.testbutton.Name = "testbutton";
+            this.testbutton.Size = new System.Drawing.Size(105, 28);
+            this.testbutton.TabIndex = 15;
+            this.testbutton.Text = "button1";
+            this.testbutton.UseVisualStyleBackColor = true;
+            this.testbutton.Click += new System.EventHandler(this.testbutton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.ClientSize = new System.Drawing.Size(480, 376);
+            this.ClientSize = new System.Drawing.Size(967, 376);
+            this.Controls.Add(this.testbutton);
+            this.Controls.Add(this.htmlLabel);
             this.Controls.Add(this.LinksGeneratedLabel);
             this.Controls.Add(this.AutoPreviewCheckbox);
             this.Controls.Add(this.ClearLogsButton);
@@ -222,6 +245,8 @@
         private System.Windows.Forms.Button ClearLogsButton;
         public System.Windows.Forms.CheckBox AutoPreviewCheckbox;
         public System.Windows.Forms.Label LinksGeneratedLabel;
+        public System.Windows.Forms.Label htmlLabel;
+        private System.Windows.Forms.Button testbutton;
     }
 }
 

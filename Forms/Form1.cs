@@ -29,11 +29,11 @@ namespace prntsc_gen
 
 		public Form1()
 		{
-            InitializeComponent();
+			InitializeComponent();
 
-        }
+		}
 
-        private void ButtonGenerate_Click(object sender, EventArgs e)
+		private void ButtonGenerate_Click(object sender, EventArgs e)
 		{
 			linksGenerated++;
 			LinksGeneratedLabel.Text = $"Links Generated: {linksGenerated}";
@@ -65,9 +65,9 @@ namespace prntsc_gen
 				Logger.Log(DateTime.Now.ToString("HH:mm:ss tt",System.Globalization.DateTimeFormatInfo.InvariantInfo) , saveDir, AppStatusLabel);
 			}
 			if(AutoPreviewCheckbox.Checked)
-            {
-				webBrowser1.Url = new Uri(currentLink);
-            }
+			{
+				webBrowser1.Url = new Uri(WebBrowser.GetDirectImageLink(htmlLabel, new Uri(currentLink)));
+			}
 		}
 
 		private void LinkTextLabel_Click(object sender, EventArgs e) { }
@@ -137,6 +137,55 @@ namespace prntsc_gen
 					}
 				}
 			}
+
+			public static string GetDirectImageLink(Label htmlLabel, Uri url)
+			{
+				WebClient wc = new WebClient();
+				wc.Headers.Add("user-agent", "prntsc_gen");
+
+				byte[] htmlContent = wc.DownloadData(url);
+
+				char[] htmlChars = Encoding.Default.GetString(htmlContent).ToCharArray();
+
+				List<string> html_quotes = html_get_everyobject_in_quotes(htmlChars);
+				List<string> goodQuotes = new List<string>();
+				
+				foreach (string str in html_quotes)
+				{
+					if(html_quotes.Contains(str)) { continue; }
+					if(str.Contains("/") && str.Contains("image.prntscr") && !str.Contains("google") || !str.Contains("google") && str.Contains("/") && str.Contains("imgur")) { goodQuotes.Add(str); continue; }
+				}
+
+				htmlLabel.Text = $"Len: {goodQuotes.Count}, AllLen: {html_quotes.Count} | {String.Join("", goodQuotes)}";
+				return goodQuotes[0];
+			}
+
+			//creds to 0xC0LD
+			public static List<string> html_get_everyobject_in_quotes(char[] htmlChars)
+			{
+				//get urls like this: blablablablablablabla "some url we want" blablablablabla
+				List<string> links = new List<string>();
+				string link = "";
+				bool afterQuote = false;
+				foreach (char ch in htmlChars)
+				{
+					if (ch == '"')
+					{
+						afterQuote = !afterQuote;
+
+						if (!afterQuote)
+						{
+							links.Add(link);
+							link = "";
+						}
+					}
+					else if (afterQuote)
+					{
+						link = link + ch; //add chars to string after quote
+					}
+				}
+				return links;
+			}
 		}
 
 		public class Logger : Form1
@@ -191,39 +240,39 @@ namespace prntsc_gen
 		{
 			if(SaveMessageTextBox.Text.ToString() == string.Empty)
 				Logger.Log($"[{DateTime.Now.ToString("HH:mm:ss tt", System.Globalization.DateTimeFormatInfo.InvariantInfo)}] Link Saved Manually | {currentLink}", currentDirectory + saveFileName, AppStatusLabel);
-			else if (SaveMessageTextBox.Text.ToString() != string.Empty)
+			else if (!string.IsNullOrWhiteSpace(SaveMessageTextBox.Text))
 			{
 				string customMessage = SaveMessageTextBox.Text;
 				Logger.Log($"[{DateTime.Now.ToString("HH:mm:ss tt", System.Globalization.DateTimeFormatInfo.InvariantInfo)}] {customMessage} | {currentLink}", currentDirectory + saveFileName, AppStatusLabel);
 			}
 		}
 
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
-        {
+		private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+		{
 			if(File.Exists(currentDirectory + saveFileName))
-            {
+			{
 				StreamWriter sw = new StreamWriter(currentDirectory + saveFileName, true, Encoding.UTF8);
-                {
+				{
 					sw.WriteLine($"Session Ended.\n----------| APP CLOSED {DateTime.Now.ToString("HH:mm:ss tt", System.Globalization.DateTimeFormatInfo.InvariantInfo)} |----------");
 
 					sw.Close();
-                }
-            }
-        }
-        private void PreviewLinkButton_Click(object sender, EventArgs e)
+				}
+			}
+		}
+		private void PreviewLinkButton_Click(object sender, EventArgs e)
 		{
 			try
 			{
 				webBrowser1.Url = new Uri(currentLink);
 			}
 			catch ( Exception plbE )
-            {
+			{
 				AppStatusLabel.Text = plbE.Message;
-            }
+			}
 		}
 
-        private void ClearLogsButton_Click(object sender, EventArgs e)
-        {
+		private void ClearLogsButton_Click(object sender, EventArgs e)
+		{
 			string timeNow = DateTime.Now.ToString("HH:mm:ss tt", System.Globalization.DateTimeFormatInfo.InvariantInfo);
 			StreamWriter sw = new StreamWriter(currentDirectory + saveFileName, false);
 			sw.WriteLine(
@@ -231,6 +280,11 @@ namespace prntsc_gen
 				$"\n## LOGS CLEARED {timeNow} ##" +
 				"\n##############################\n");
 			sw.Close();
-        }
-    }
+		}
+
+		private void testbutton_Click(object sender, EventArgs e)
+		{
+			WebBrowser.GetDirectImageLink(htmlLabel, new Uri(currentLink));
+		}
+	}
 }
