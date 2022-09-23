@@ -202,7 +202,6 @@
             this.htmlLabel.TabIndex = 14;
             this.htmlLabel.Text = "Html Data";
             this.htmlLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.htmlLabel.Click += new System.EventHandler(this.htmlLabel_Click);
             // 
             // testbutton
             // 
