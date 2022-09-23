@@ -5,17 +5,25 @@ using System.Windows.Forms;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
-using System.Web;
 using System.Net;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
+
+/*	---------------------
+ *	|	 prnt_sc_gen	|
+ *	|	   Form1.cs		|
+ *	|	using WinForms	|
+ *	|	   SP 35 8D		|
+ *	---------------------*/
 
 namespace prntsc_gen
 {
 	public partial class Form1 : Form
 	{
-		public static WebClient wc = new WebClient();
-
+		/*----------------------
+		 *|					   |
+		 *|Deklaracja zmiennych|
+		 *|					   |
+		 *----------------------*/
 		public int linksGenerated = 0;
 
 		public string currentLink;
@@ -26,13 +34,14 @@ namespace prntsc_gen
 		readonly List<string> Characters = new List<string>() { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "y", "v", "x", "w", "z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
 		readonly Random random = new Random();
 
-
+		//Konstruktor klasy
 		public Form1()
 		{
 			InitializeComponent();
-
 		}
 
+
+		//funkcja wywoływana przy naciśnięciu przycisku "Generate"
 		private void ButtonGenerate_Click(object sender, EventArgs e)
 		{
 			linksGenerated++;
@@ -44,9 +53,7 @@ namespace prntsc_gen
 			}
 			for (int i = 0; i < 6; i++)
 			{
-				int x = random.Next(0, Characters.Count - 1);
-
-				link.Add(Characters[x].ToString());
+				link.Add(Characters[random.Next(0, Characters.Count - 1)].ToString());
 			}
 
 			if (link[0] == "0")
@@ -58,12 +65,10 @@ namespace prntsc_gen
 
 			CurrentLinkLabel.Text = $"{currentLink}";
 
-            AppStatusLabel.Text = $"{DateTime.Now.ToString("HH:mm:ss tt",System.Globalization.DateTimeFormatInfo.InvariantInfo)} HttpResponse: {WebBrowser.Get(currentLink)}";
-
-
-            if (WebBrowser.Get(currentLink) != 200)
+			if(!WebBrowser.Get(WebBrowser.GetDirectImageLink(htmlLabel, new Uri(currentLink)),AppStatusLabel))
 			{
-				return;
+				AppStatusLabel.Text = $"[{DateTime.Now.ToString("HH:mm:ss tt",System.Globalization.DateTimeFormatInfo.InvariantInfo)}] HttpResponse Failed!";
+				ButtonGenerate_Click(sender, e);
 			}
 
 			if (CheckBoxLog.Checked)
@@ -72,6 +77,7 @@ namespace prntsc_gen
 
 				Logger.Log(DateTime.Now.ToString("HH:mm:ss tt",System.Globalization.DateTimeFormatInfo.InvariantInfo) , saveDir, AppStatusLabel);
 			}
+
 			if(AutoPreviewCheckbox.Checked)
 			{
 				Uri currentLinkUri = new Uri(currentLink);
@@ -79,18 +85,15 @@ namespace prntsc_gen
 			}
 		}
 
-		private void LinkTextLabel_Click(object sender, EventArgs e) { }
-
 		private void OpenInBrowserButton_Click(object sender, EventArgs e)
 		{
-			if (currentLink != String.Empty)
+			if (!String.IsNullOrWhiteSpace(currentLink))
 			{
 				WebBrowser.OpenInBrowser(currentLink);
 			}
 		}
 
-		private void AppStatusLabel_Click(object sender, EventArgs e) { }
-
+		//funkcja wywoływana przy załadowaniu okna
 		private void Form1_Load(object sender, EventArgs e) 
 		{
 			Logger.OnStartupMessage(currentDirectory + saveFileName);
@@ -113,13 +116,18 @@ namespace prntsc_gen
 
 		private void OpenLogButton_Click(object sender, EventArgs e)
 		{
+			/* Odwołanie do klasy Logger, funkcji 'OpenLogFile' */
+
 			Logger.OpenLogFile(currentDirectory + saveFileName);
 		}
 
+
+		/* Deklaracja Klasy 'WebBrowser' */
 		public static class WebBrowser
 		{
 			public static void OpenInBrowser(string url)
 			{
+				/* Jeśli obecny link jest pusty, wyjdź z funkcji*/
 				if (string.IsNullOrWhiteSpace(url)) { return; }
 				try
 				{
@@ -147,20 +155,44 @@ namespace prntsc_gen
 				}
 			}
 
-			public static int Get(string url)
+
+			/* Funkcja zwracająca liczbe całkowitą reprezentującą kod statusu odpowiedzi serwera */
+			/*
+				200 - OK 
+				404 - Not Found
+				403 - Forbidden
+				etc.
+			 */
+			public static bool Get(string url, Label AppStatusLabel)
 			{
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-                request.Method = "GET";
-				request.Timeout = 5000;
-				request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36";
-                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                HttpStatusCode status = response.StatusCode;
+				HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+				request.Method = "GET";
+				request.Timeout = 5000; //po 5000 ms, rozłącz i zwróć błąd
+				request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36"; //"podszywani" się pod normalnego klienta; zapobiega błędowi 403
 
+				bool success = true;
+
+				try
+				{
+					using(var response = request.GetResponse() as HttpWebResponse)
+					{
+						if(response.StatusCode == HttpStatusCode.OK)
+						{
+							success = true;
+						}
+					}
+				}
+				catch (Exception getE)
+				{
+					AppStatusLabel.Text = getE.Message;
+					success = false;
+				}
+			
 				request.Abort();
+				return success;
+			}
 
-				return (int)status;
-            }
-
+			//Workflow: pobierz html strony -> zostawić tylko tekst w cudzyslowach -> zwrócić link z listy
 			public static string GetDirectImageLink(Label htmlLabel, Uri url)
 			{
 				WebClient wc = new WebClient();
@@ -175,17 +207,17 @@ namespace prntsc_gen
 				
 				foreach (string str in html_quotes)
 				{
+					if(goodQuotes.Contains(str)) { continue; }
 					if(str.Contains("/") && str.Contains("image.prntscr") && !str.Contains("google") || !str.Contains("google") && str.Contains("/") && str.Contains("imgur")) { goodQuotes.Add(str); continue; }
 				}
 
-				htmlLabel.Text = $"Len: {goodQuotes.Count}, AllLen: {html_quotes.Count} | {String.Join("", goodQuotes)}";
+				htmlLabel.Text = $"Len: {goodQuotes.Count}, AllLen: {html_quotes.Count} | {String.Join("", goodQuotes)} AllHtmlQuotes: {string.Join("", html_quotes)}";
 				return goodQuotes.First();
 			}
 
-            //creds to 0xC0LD
-            public static List<string> HtmlGetEveryObjectInQuotes(char[] htmlChars)
+			//konwertuje zawartośc html na liste tekstu która jest w cudzysłowach
+			public static List<string> HtmlGetEveryObjectInQuotes(char[] htmlChars)
 			{
-				//get urls like this: blablablablablablabla "some url we want" blablablablabla
 				List<string> links = new List<string>();
 				string link = "";
 				bool afterQuote = false;
@@ -203,7 +235,7 @@ namespace prntsc_gen
 					}
 					else if (afterQuote)
 					{
-						link += ch; //add chars to string after quote
+						link += ch; //dodaj znaki do string po cudzysłowiu
 					}
 				}
 				return links;
@@ -285,7 +317,7 @@ namespace prntsc_gen
 		{
 			try
 			{
-				webBrowser1.Url = new Uri(currentLink);
+				webBrowser1.Url = new Uri(WebBrowser.GetDirectImageLink(htmlLabel, new Uri(currentLink)));
 			}
 			catch ( Exception plbE )
 			{
@@ -308,19 +340,29 @@ namespace prntsc_gen
 		{
 			try
 			{
-                WebBrowser.GetDirectImageLink(htmlLabel, new Uri(currentLink));
+				WebBrowser.GetDirectImageLink(htmlLabel, new Uri(currentLink));
 
-            }
+			}
 			catch (Exception wbtE)
 			{
 				AppStatusLabel.Text = wbtE.Message;
 			}
-        }
+		}
 
 		private void CopyLinkToClipboardButton_Click(object sender, EventArgs e)
 		{
 			Clipboard.SetText(currentLink);
 			AppStatusLabel.Text = $"[{DateTime.Now.ToString("HH:mm:ss tt",System.Globalization.DateTimeFormatInfo.InvariantInfo)}] Link saved to clipboard!";
+		}
+
+		private void GetDirectImageLink_Click(object sender, EventArgs e)
+		{
+			Clipboard.SetText(WebBrowser.GetDirectImageLink(htmlLabel, new Uri(currentLink)));
+		}
+
+		private void htmlLabel_Click(object sender, EventArgs e)
+		{
+
 		}
 	}
 }
