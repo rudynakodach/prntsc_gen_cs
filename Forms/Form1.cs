@@ -207,7 +207,7 @@ namespace prntsc_gen
 				
 				foreach (string str in html_quotes)
 				{
-					if(goodQuotes.Contains(str)) { continue; }
+					if(goodQuotes.Contains(str)) { continue; } //nie dodawaj tych samych linków
 					if(str.Contains("/") && str.Contains("image.prntscr") && !str.Contains("google") || !str.Contains("google") && str.Contains("/") && str.Contains("imgur")) { goodQuotes.Add(str); continue; }
 				}
 

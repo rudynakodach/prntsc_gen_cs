@@ -261,7 +261,7 @@
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.ClientSize = new System.Drawing.Size(967, 376);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.GetDirectImageLink);
