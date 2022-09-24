@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.ButtonGenerate = new System.Windows.Forms.Button();
             this.CheckBoxLog = new System.Windows.Forms.CheckBox();
             this.ButtonOpen = new System.Windows.Forms.Button();
@@ -48,7 +47,6 @@
             this.CopyLinkToClipboardButton = new System.Windows.Forms.Button();
             this.GetDirectImageLink = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -206,7 +204,7 @@
             // testbutton
             // 
             this.testbutton.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.testbutton.Location = new System.Drawing.Point(688, 349);
+            this.testbutton.Location = new System.Drawing.Point(680, 349);
             this.testbutton.Name = "testbutton";
             this.testbutton.Size = new System.Drawing.Size(75, 23);
             this.testbutton.TabIndex = 15;
@@ -313,7 +311,6 @@
         public System.Windows.Forms.Button CopyLinkToClipboardButton;
         private System.Windows.Forms.Button GetDirectImageLink;
         private System.Windows.Forms.Panel panel1;
-        public System.Windows.Forms.Timer timer1;
     }
 }
 

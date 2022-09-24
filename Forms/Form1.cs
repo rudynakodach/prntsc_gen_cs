@@ -12,7 +12,7 @@ using System.Linq;
  *	|	 prnt_sc_gen	|
  *	|	   Form1.cs		|
  *	|	using WinForms	|
- *	|	   SP 35 8D		|
+ *	|	 SP 35 8D nr 5	|
  *	---------------------*/
 
 namespace prntsc_gen
@@ -81,7 +81,18 @@ namespace prntsc_gen
             if (AutoPreviewCheckbox.Checked)
             {
                 Uri currentLinkUri = new Uri(currentLink);
-                webBrowser1.Url = new Uri(WebBrowser.GetDirectImageLink(htmlLabel, currentLinkUri));
+
+                string directImageLink = WebBrowser.GetDirectImageLink(htmlLabel, currentLinkUri);
+
+                if(string.IsNullOrWhiteSpace(directImageLink))
+                {
+                    ButtonGenerate_Click(sender, e);
+                    return;
+                }
+                else
+                {
+                    webBrowser1.Url = new Uri(WebBrowser.GetDirectImageLink(htmlLabel, currentLinkUri));
+                }
             }
         }
 
@@ -212,7 +223,15 @@ namespace prntsc_gen
                 }
 
                 htmlLabel.Text = $"Len: {goodQuotes.Count}, AllLen: {html_quotes.Count} | {String.Join("", goodQuotes)} AllHtmlQuotes: {string.Join("", html_quotes)}";
-                return goodQuotes.First();
+                try
+                {
+                    return goodQuotes.First();
+                }
+                catch
+                {
+                    return null;
+                }
+
             }
 
             //konwertuje zawartośc html na liste tekstu która jest w cudzysłowach
