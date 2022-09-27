@@ -6,7 +6,14 @@ using System.Windows.Forms;
 namespace prntsc_gen.Forms.CustomElements
 {
 
-	public class RoundButton : Button
+    /*	---------------------
+ *	|	 prnt_sc_gen	|
+ *	|	RoundButton.cs	|
+ *	|	using WinForms	|
+ *	---------------------*/
+
+
+    public class RoundButton : Button
 	{
 
 		public int borderSize = 0;

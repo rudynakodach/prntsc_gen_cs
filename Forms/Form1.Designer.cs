@@ -41,20 +41,16 @@
             this.ClearLogsButton = new System.Windows.Forms.Button();
             this.AutoPreviewCheckbox = new System.Windows.Forms.CheckBox();
             this.LinksGeneratedLabel = new System.Windows.Forms.Label();
-            this.htmlLabel = new System.Windows.Forms.Label();
-            this.testbutton = new System.Windows.Forms.Button();
-            this.splitter1 = new System.Windows.Forms.Splitter();
             this.CopyLinkToClipboardButton = new System.Windows.Forms.Button();
             this.GetDirectImageLink = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel1.SuspendLayout();
+            this.DownloadImageButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ButtonGenerate
             // 
             this.ButtonGenerate.BackColor = System.Drawing.SystemColors.Info;
             this.ButtonGenerate.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.ButtonGenerate.Location = new System.Drawing.Point(393, 326);
+            this.ButtonGenerate.Location = new System.Drawing.Point(393, 322);
             this.ButtonGenerate.Name = "ButtonGenerate";
             this.ButtonGenerate.Size = new System.Drawing.Size(75, 23);
             this.ButtonGenerate.TabIndex = 0;
@@ -77,7 +73,7 @@
             this.ButtonOpen.BackColor = System.Drawing.SystemColors.Info;
             this.ButtonOpen.Cursor = System.Windows.Forms.Cursors.Default;
             this.ButtonOpen.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.ButtonOpen.Location = new System.Drawing.Point(230, 326);
+            this.ButtonOpen.Location = new System.Drawing.Point(230, 322);
             this.ButtonOpen.Name = "ButtonOpen";
             this.ButtonOpen.Size = new System.Drawing.Size(75, 23);
             this.ButtonOpen.TabIndex = 3;
@@ -151,7 +147,7 @@
             // 
             this.ViewLinkButton.BackColor = System.Drawing.SystemColors.Info;
             this.ViewLinkButton.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.ViewLinkButton.Location = new System.Drawing.Point(311, 326);
+            this.ViewLinkButton.Location = new System.Drawing.Point(311, 322);
             this.ViewLinkButton.Name = "ViewLinkButton";
             this.ViewLinkButton.Size = new System.Drawing.Size(75, 23);
             this.ViewLinkButton.TabIndex = 10;
@@ -173,8 +169,7 @@
             // 
             // AutoPreviewCheckbox
             // 
-            this.AutoPreviewCheckbox.AutoSize = true;
-            this.AutoPreviewCheckbox.Location = new System.Drawing.Point(298, 355);
+            this.AutoPreviewCheckbox.Location = new System.Drawing.Point(301, 351);
             this.AutoPreviewCheckbox.Name = "AutoPreviewCheckbox";
             this.AutoPreviewCheckbox.Size = new System.Drawing.Size(89, 17);
             this.AutoPreviewCheckbox.TabIndex = 12;
@@ -192,34 +187,6 @@
             this.LinksGeneratedLabel.Text = "Links Generated: 0";
             this.LinksGeneratedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // htmlLabel
-            // 
-            this.htmlLabel.Location = new System.Drawing.Point(0, 0);
-            this.htmlLabel.Name = "htmlLabel";
-            this.htmlLabel.Size = new System.Drawing.Size(481, 329);
-            this.htmlLabel.TabIndex = 14;
-            this.htmlLabel.Text = "Html Data";
-            this.htmlLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // testbutton
-            // 
-            this.testbutton.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.testbutton.Location = new System.Drawing.Point(680, 349);
-            this.testbutton.Name = "testbutton";
-            this.testbutton.Size = new System.Drawing.Size(75, 23);
-            this.testbutton.TabIndex = 15;
-            this.testbutton.Text = "GetHtmlAll";
-            this.testbutton.UseVisualStyleBackColor = true;
-            this.testbutton.Click += new System.EventHandler(this.testbutton_Click);
-            // 
-            // splitter1
-            // 
-            this.splitter1.Location = new System.Drawing.Point(0, 0);
-            this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 376);
-            this.splitter1.TabIndex = 16;
-            this.splitter1.TabStop = false;
-            // 
             // CopyLinkToClipboardButton
             // 
             this.CopyLinkToClipboardButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -229,7 +196,7 @@
             this.CopyLinkToClipboardButton.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.CopyLinkToClipboardButton.Location = new System.Drawing.Point(393, 293);
             this.CopyLinkToClipboardButton.Name = "CopyLinkToClipboardButton";
-            this.CopyLinkToClipboardButton.Size = new System.Drawing.Size(75, 23);
+            this.CopyLinkToClipboardButton.Size = new System.Drawing.Size(0, 23);
             this.CopyLinkToClipboardButton.TabIndex = 17;
             this.CopyLinkToClipboardButton.Text = "Copy Link";
             this.CopyLinkToClipboardButton.UseVisualStyleBackColor = false;
@@ -247,24 +214,25 @@
             this.GetDirectImageLink.UseVisualStyleBackColor = false;
             this.GetDirectImageLink.Click += new System.EventHandler(this.GetDirectImageLink_Click);
             // 
-            // panel1
+            // DownloadImageButton
             // 
-            this.panel1.Controls.Add(this.htmlLabel);
-            this.panel1.Location = new System.Drawing.Point(474, 14);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(481, 329);
-            this.panel1.TabIndex = 19;
+            this.DownloadImageButton.BackColor = System.Drawing.SystemColors.Info;
+            this.DownloadImageButton.Location = new System.Drawing.Point(392, 294);
+            this.DownloadImageButton.Name = "DownloadImageButton";
+            this.DownloadImageButton.Size = new System.Drawing.Size(75, 23);
+            this.DownloadImageButton.TabIndex = 20;
+            this.DownloadImageButton.Text = "Download";
+            this.DownloadImageButton.UseVisualStyleBackColor = false;
+            this.DownloadImageButton.Click += new System.EventHandler(this.DownloadImageButton_Click);
             // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.ClientSize = new System.Drawing.Size(967, 376);
-            this.Controls.Add(this.panel1);
+            this.ClientSize = new System.Drawing.Size(474, 376);
+            this.Controls.Add(this.DownloadImageButton);
             this.Controls.Add(this.GetDirectImageLink);
             this.Controls.Add(this.CopyLinkToClipboardButton);
-            this.Controls.Add(this.splitter1);
-            this.Controls.Add(this.testbutton);
             this.Controls.Add(this.LinksGeneratedLabel);
             this.Controls.Add(this.AutoPreviewCheckbox);
             this.Controls.Add(this.ClearLogsButton);
@@ -279,12 +247,13 @@
             this.Controls.Add(this.CheckBoxLog);
             this.Controls.Add(this.ButtonGenerate);
             this.Name = "Form1";
+            this.Opacity = 0D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "prnt_sc_gen";
             this.TopMost = true;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.panel1.ResumeLayout(false);
+            this.Shown += new System.EventHandler(this.Form1_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -305,12 +274,9 @@
         private System.Windows.Forms.Button ClearLogsButton;
         public System.Windows.Forms.CheckBox AutoPreviewCheckbox;
         public System.Windows.Forms.Label LinksGeneratedLabel;
-        public System.Windows.Forms.Label htmlLabel;
-        private System.Windows.Forms.Button testbutton;
-        private System.Windows.Forms.Splitter splitter1;
         public System.Windows.Forms.Button CopyLinkToClipboardButton;
         private System.Windows.Forms.Button GetDirectImageLink;
-        private System.Windows.Forms.Panel panel1;
+        public System.Windows.Forms.Button DownloadImageButton;
     }
 }
 
